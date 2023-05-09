@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='UTF-8'>
+        <title>LOLbang : 로그인</title>
+        {% load static %}
+        <script src="{% static '/js/trim.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/idfind.css' %}">
+        <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+        <script language="javascript">  
+            function check(){
+                var pwdval = f.pwd.value;
+                pwdval = trim(pwdval);
+                if(pwdval.length == 0){
+                    alert("비밀번호를 입력해주세요");
+                    f.pwd.value = "";
+                    f.pwd.focus();
+                    return false;
+                }else{
+                    pass = checkByteLen(pwdval, 20);
+                    if(!pass){
+                        alert("비밀번호가 너무 길어요");
+                        f.pwd.focus();
+                        return false;
+                    }
+                }
+                var pwd_checkval = f.pwd_check.value;
+                pwd_checkval = trim(pwd_checkval);
+                if(pwd_checkval.length == 0){
+                    alert("비밀번호를 다시 입력해주세요");
+                    f.pwd_check.value = "";
+                    f.pwd_check.focus();
+                    return false;
+                }else{
+                    pass = checkpwd(pwdval, pwd_checkval);
+                    if(!pass){
+                        alert("두 비밀번호가 일치하지않습니다");
+                        f.pwd_check.focus();
+                        return false;
+                    }
+                }
+                alert("비밀번호가 변경되었습니다.")
+                f.submit();
+            }
+        
+            function checkByteLen(str, size){
+                var byteLen = getByteLen(str);
+                if(byteLen <= size){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            function getByteLen(str){
+               return str.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
+            }
+            
+            function checkpwd(str1, str2){
+                var pwd1 = str1
+                var pwd2 = str2
+                if(pwd1 == pwd2){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+            function enterCheck(elm){
+                if(event.keyCode == 13){
+                    if(elm == f.pwd){
+                        f.pwd_check.focus();
+                    }else if(elm == f.pwd_check){
+                        document.getElementsByClassName("find_button")[0].focus();
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div class="body_container">
+            <form name="f" action="pwfind_submit" method="post">
+            {% csrf_token %}
+            <div class="container">
+                <center>         
+                    <div><a href="/bang/League_of_Legends/home" class="logo"><img src="{% static 'imgs/logo.png' %}"></a></div>
+                </center>
+                <div class="idfind-container">
+                    <div class="email-wrapper">
+                        <div class="email-label-wrapper">
+                            <h4>새로운 비밀번호를 입력해주세요</h4>
+                        </div>
+                        <div class="email-input-wrapper">                        
+                            <input class="input" type="password", name="pwd" maxlength="20" placeholder="새 비밀번호를 입력해주세요" onkeydown="enterCheck(this)">
+                        </div>
+                    <div class="name-wrapper">
+                        <div class="name-label-wrapper">
+                            <h4>비밀번호를 다시 입력해주세요</h4>
+                        </div>
+                        <div class="name-input-wrapper">
+                            <input class="input" type="password", name="pwd_check" maxlength="20" placeholder="다시 한번 입력해주세요" onkeydown="enterCheck(this)">
+                        </div>
+                    </div>
+                    <br/>
+                    <label>{{ check_ok }}</label>
+                    <div class="findBt-wrapper">
+                        <input class="find_button" type="button" value="비밀번호 변경" onclick="check()">                     
+                    </div>
+                </div>
+            </div>  
+            </form>
+        </div>
+    </body>
+   {% include 'footer.html' %}
+</html>

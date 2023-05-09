@@ -1,0 +1,76 @@
+.article-write-wrapper, .article-all-wrapper, .article-parents-title {
+	display: block;
+	margin-top: 10%;
+	margin-left: 10%;
+}
+.article-parents-title  {
+	margin-bottom: 3%;
+}
+#article-write-button{
+	border: none;
+	width: 140px;
+	height: 40px;
+	border-radius: 10px;
+	background: rgba(0,0,0,9.9);		
+}
+
+#article-all-button {
+	border: none;
+	width: 140px;
+	height: 40px;
+	background-color: white;			
+}
+#article-childs-item-button {
+	border: none;
+	width: 100px;
+	height: 40px;
+	text-align: left;
+	background-color: white;			
+}
+
+#article-write-span, #article-all-span {
+	font-family: '나눔스퀘어L';
+	font-size: 15px;
+	font-weight: 700;
+}
+#article-write-span{
+	color: white;
+	border-radius: 10px;
+	background: rgba(0,0,0,9.9);
+}
+
+#article-all-span {
+	color:rgb(14, 21, 80);
+}
+
+#article-write-button:hover {
+	cursor: pointer;
+}
+#article-all-span:hover {
+	cursor: pointer;
+}
+
+#article-childs-item-span:hover {
+	background-color: navy;
+	color: white;
+	cursor: pointer;			
+}
+
+#article-childs-item-span {
+	font-family: '나눔스퀘어L';
+	font-size: 13px;
+	font-weight: 700;
+	text-align: left;
+}
+
+
+
+strong {
+	font-family: '210썸타임L';
+	font-size: 20px;
+	font-weight: bold;
+	color:navy;
+}
+li {
+	list-style-type: none;
+}

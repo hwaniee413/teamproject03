@@ -1,0 +1,101 @@
+
+{% load static %}
+
+<style>
+	
+	@font-face  {
+		font-family:'나눔스퀘어L';
+		font-style:'normal';
+		font-weight: 400;
+		src: url("{% static '/fonts/NanumSquareOTFLight.woff' %}");
+	}
+	@font-face  {
+		font-family:'나눔스퀘어B';
+		font-style:'normal';
+		font-weight: 900;
+		src: url("{% static '/fonts/NanumSquareOTFBold.woff' %}");
+	}
+	@font-face  {
+		font-family:'210썸타임L';
+		font-style:'normal';
+		font-weight: 400;
+		src: url("{% static '/fonts/210-Sometime-OTF-L.woff' %}");
+	}
+	@font-face  {
+		font-family:'210썸타임B';
+		font-style:'normal';
+		font-weight: 400;
+		src: url("{% static '/fonts/210-Sometime-OTF-B.woff' %}");
+	}
+</style>
+<link rel="stylesheet" href="{% static 'css/header.css' %}">
+<link rel="stylesheet" href="{% static 'css/mainslider.css' %}">
+<script src="{% static 'js/header.js' %}"></script>
+<script> 
+	{% if request.session.signin_ok_user %}
+	var session_timeout = "{{ request.session.get_expiry_age }}";
+		setTimeout(function() {
+		  alert("세션이 만료되어 로그아웃 되었습니다.");
+		  window.location.href = "../signout";
+	}, session_timeout * 1000);
+	{% endif %}
+</script>
+<header>
+<div class="pseudo-left-div"></div>
+<div class="container_center">
+	<div class="inner_top">
+		<div class="inner_top_logo">
+			<a id="logo" href="/bang/League_of_Legends/home"><img id="logo-img" src="{% static 'imgs/logo.png' %}"></a>
+		</div>
+		<div class="inner_top_logo_explain">
+			<strong class="logo_explain">수다Bang</strong>
+		</div>
+		<div class="inner_top_center">
+		</div>
+		{% if request.session.signin_ok_user %}
+		<div class="inner_top_login"> 
+			<a id="profile" href="/bang/League_of_Legends/profile">내 프로필</a>
+		</div>
+		{% else %}
+		<div class="inner_top_login"> 
+			<a id="login" href="/bang/League_of_Legends/signin">로그인</a>
+		</div>
+		{% endif %}
+	</div>
+	<div class="slider_wrapper">
+		<div class="slider_top"></div>
+		<div class="slider_center">
+			<div class="slider">
+				<input type="radio" name="slide" id="slide1" checked>
+				<input type="radio" name="slide" id="slide2">
+				<input type="radio" name="slide" id="slide3">
+				<input type="radio" name="slide" id="slide4">
+				<ul id="imgholder" class="imgs">
+					<li><img class="slides" src="{% static 'imgs/mainimg-ari.jpg' %}"></li>
+					<li><img class="slides"  src="{% static 'imgs/mainimg-darius.jpg' %}"></li>
+					<li><img class="slides" src="{% static 'imgs/mainimg-lux.jpg' %}"></li>
+					<li><img class="slides" src="{% static 'imgs/mainimg-sett.jpg' %}"></li>
+				</ul>
+				<div class="slide_prev_button slide_button">◀</div>
+				<div class="slide_next_button slide_button">▶</div>
+				<div class="bullets">
+					<label for="slide1">&nbsp;</label>
+					<label for="slide2">&nbsp;</label>
+					<label for="slide3">&nbsp;</label>
+					<label for="slide4">&nbsp;</label>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="nav_wrapper_div">
+		<nav class="nav_wrapper">
+			<div class="nav_elm1"><a id="header_nav_a1" href="/bang/League_of_Legends/home"> 홈 </a></div>
+			<div class="nav_elm2"><a id="header_nav_a2" href="/bang/League_of_Legends/board"> 게시판 </a></div>
+			<div class="nav_elm3"><a id="header_nav_a3" href="/bang/League_of_Legends/db/champion"> 데이터 </a></div>
+			<div class="nav_elm4"><a id="header_nav_a4" href="/bang/League_of_Legends/videos"> 영상 </a></div>
+		</nav>
+	</div>
+</div>
+<div class="pseudo-right-div"></div>
+</header>

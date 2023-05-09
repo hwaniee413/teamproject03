@@ -1,0 +1,133 @@
+ .body_container {
+    display: block;
+    width: 1200px;
+    margin: auto;
+    margin-top: 80px;
+
+    overflow: hidden;
+}
+.container{
+    display: block;
+    width: 500px;
+    margin:auto;
+    margin-bottom: 20px;
+}
+
+.name-label-wrapper, .nname-label-wrapper, .email-label-wrapper, .pwd-label-wrapper, .phone-label-wrapper {
+    height: 40px;
+}
+.signin-signup-wrapper{
+    height: 40px;
+}
+.signin-wrapper, .signup-wrapper{
+    float: left;
+}
+
+#signin, #signup{
+    font-style: '나눔스퀘어L';
+    width: 150px;
+    height: 40px;
+    border: solid 0.5px;
+    border-radius: 0px 20px 0px  0px;
+    background: rgb(87, 205, 86);
+    color: white;
+}
+#signup{
+    background: #0441c4;
+    color: white;
+}
+.logo { 
+    background-position: 0 -50px;
+    background-repeat: no-repeat;
+}
+.container {
+    margin: 0 auto;
+    max-width: 400px;
+    min-width: 250px;
+}
+.name_box {
+    display: block;
+    position: relative;
+    text-align: left;
+    width: 100%;
+    height: 40px;
+    border: solid 1px #dadada;
+    padding: 10px 110px 10px 14px;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+
+.put_in {
+    display: block;
+    width: 100%;
+    height: 50px;
+    padding-right: 25px;
+    line-height: 30px;
+    border: solid 2px #dadada;
+    background: #fff;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.put_in1{
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    padding-right: 25px;
+    line-height: 30px;
+    border: solid 2px #dadada;
+    background: #fff;
+    font-size: 15px;
+    margin-right: 15px;
+    box-sizing: border-box;
+}
+#emailid:valid{
+    border-color: navy;
+}
+#emailid:invalid{
+    border-color: red;
+}
+
+
+.put_in2{
+    display: inline-block;
+    width: 110px;
+    height: 50px;
+    padding-right: 25px;
+    line-height: 30px;
+    border: solid 2px #dadada;
+    background: #fff;
+    font-size: 15px;
+    margin-right: 15px;
+    margin-left: 10px;
+    box-sizing: border-box;
+}
+
+.put_in3{
+    display: inline-block;
+    width: 115px;
+    height: 50px;
+    padding-right: 25px;
+    line-height: 30px;
+    border: solid 2px #dadada;
+    background: #fff;
+    font-size: 15px;
+    margin-left: 10px;
+    box-sizing: border-box;
+}
+
+
+.signup_button {
+    cursor: pointer;
+    display: block;
+    position: center;
+    width: 400px;
+    height: 50px;
+    margin-top: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    border:solid 0.3px;
+    background-color: #0441c4;
+    color: #ffffff;
+}

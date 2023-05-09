@@ -1,0 +1,678 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge; chrome=1">
+	<meta http-equiv="Expires" content="-1">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title>롤방 게시글</title>
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>             
+	<style>
+		@font-face  {
+			font-family:'나눔스퀘어L';
+			font-style:'normal';
+			font-weight: 400;
+			src: url("{% static '/fonts/NanumSquareOTFLight.woff' %}");
+		}
+		@font-face  {
+			font-family:'나눔스퀘어B';
+			font-style:'normal';
+			font-weight: 900;
+			src: url("{% static '/fonts/NanumSquareOTFBold.woff' %}");
+		}
+		@font-face  {
+			font-family:'210썸타임L';
+			font-style:'normal';
+			font-weight: 400;
+			src: url("{% static '/fonts/210-Sometime-OTF-L.woff' %}");
+		}
+		@font-face  {
+			font-family:'210썸타임B';
+			font-style:'normal';
+			font-weight: 400;
+			src: url("{% static '/fonts/210-Sometime-OTF-B.woff' %}");
+		}
+		.body_container {
+			display: block;
+			width: 1150px;
+			height: auto;
+			margin: auto;
+			overflow: hidden;
+			background:linear-gradient(to bottom, rgba(209, 209, 209, 1), rgba(209,209,209,0.2));
+		}
+		.nav_container, .editor_container {
+			float: left;
+			margin-top: 20px;
+			border-radius: 30px;
+			box-shadow: 5px 5px 5px gray;
+		}
+		.nav_container  {
+			margin-left: 10px;
+			width: 180px;
+		}
+		
+		.nav_container {
+			background: white;
+		}
+		.editor_container {
+			display: block;
+			margin-left: 25px;
+			margin-bottom: 30px;
+			width: 900px;
+			height: auto;
+			overflow: hidden;
+			background: white;
+		
+		}
+		.editor_top_container {
+			padding-top:20px;
+			padding-left:20px;
+			padding-right:20px;
+			padding-bottom:20px;
+			height: 35px;
+			border-radius: 30px 30px 0px 0px;
+			background: rgba(26, 74, 180, 0.992);
+		}
+		
+		.editor_top_label_wrapper, .editor_top_combobox_wrapper{
+			float: left;
+			margin-left:15px;
+		}
+		#editor_top_label1{
+			font-family: '210썸타임L';
+			font-size: 23px;
+			color:white;
+		}
+		#editor_top_label2{
+
+			font-family: '210썸타임L';
+			font-size: 15px;
+			color:white;
+		}
+		select {
+			width: 150px;
+			height: 33px;
+			border:solid 0.3px gray;
+			border-radius: 20px;
+			background: white;
+		}
+		#option-none{
+			font-family: '나눔스퀘어L';
+			text-align: center;
+		}
+		#option-title{
+			font-family: '210썸타임L';
+			font-size: 20px;
+			color: navy
+		}
+		#option-item{
+			font-family: '나눔스퀘어L';
+			font-size: 14px;
+			color: black;
+		}
+		.editor_main_conatainer{
+			height:750px;
+			background: rgba(255,255,255,0.8);
+	
+		}
+		#editor_title_ta{ 
+			font-family: '나눔스퀘어L';
+			font-size: 16px;
+			border: solid 0.4px rgb(197, 197, 197);
+			width:888px;
+			height: 30px; 
+			padding:5px;
+			padding-left: 20px;
+		}
+		
+		.btn-success, .btn-cancel{
+			float: right;
+			padding: 2px;
+			width: 120px;
+			height: 35px;
+			border:solid 0.1px gray;
+			border-radius: 10px;
+			background: rgba(61, 195, 97,0.8);
+			font-family: '210썸타임L';
+			font-size: 17px;
+			color:black;
+		}
+		.btn-success:hover, .btn-cancel:hover{
+			background: rgba(11, 48, 95, 1);
+			color:white;
+		}
+
+		.article-all-wrapper, .article-parents-title {
+			display: block;
+			margin-top: 10%;
+			margin-left: 10%;
+		}
+		.article-parents-title  {
+			margin-bottom: 3%;
+		}
+
+		#article-all-button {
+			border: none;
+			width: 140px;
+			height: 40px;
+			background-color: white;			
+		}
+		#article-childs-item-button {
+			border: none;
+			width: 100px;
+			height: 40px;
+			text-align: left;
+			background-color: white;			
+		}
+		#article-childs-item-span:hover {
+			background-color: navy;
+			color: white;
+			cursor: pointer;			
+		}
+		#article-all-span {
+			font-family: '나눔스퀘어L';
+			font-size: 15px;
+			font-weight: 700;
+		}
+		#article-all-span:hover {
+			cursor: pointer;
+		}
+		#article-childs-item-span {
+			font-family: '나눔스퀘어L';
+			font-size: 13px;
+			font-weight: 700;
+		}
+		#article-childs-item-span {
+			text-align: left;
+		}
+		#article-all-span {
+			color:rgb(14, 21, 80);
+		}
+		strong {
+			font-family: '210썸타임L';
+			font-size: 20px;
+			font-weight: bold;
+			color:navy;
+		}
+		li {
+			list-style-type: none;
+		}
+		
+		.toggle-switch input{
+		  -webkit-appearance:none;
+		  -webkit-border-radius:0;
+		}
+		
+		#toggle-container{
+			display: flex;
+		  	width: 100%;
+			/*   height: 98vh; */
+		  	justify-content:center;
+		  	align-items:center;
+		  	background: rgba(26, 74, 180, 0.992);
+		}
+		.toggle-switch input[type=checkbox]{
+		  	display: none;
+		}
+		
+		.toggle-track{
+	  		display: inline-block;
+	  		position: relative;
+	  		width: 60px;
+	  		height: 27px;
+	  		border-radius:60px;
+	  		background: #8b8b8b;
+		}
+		.toggle-track:before{
+		  	content:'';
+		  	display: block;
+		  	position: absolute;
+		  	top: -6px;
+		  	left: -15px;
+		  	width: 27px;
+		  	height: 27px; 
+		  	margin: 5px;
+		  	background: #fff;
+		  	border-radius:100%;
+		  	border:1px solid #8b8b8b;
+		  	transition:left 0.3s;
+		}
+		.toggle-switch input[type=checkbox] + label .toggle-track:after{
+		  content:'추천';
+		  display: inline-block;
+		  position: absolute;
+		  right: 8px;
+		  color: #fff;
+		}
+		.toggle-switch input[type=checkbox]:checked + label .toggle-track{
+		  background: #FA9AA6;
+		}
+		.toggle-switch input[type=checkbox]:checked + label .toggle-track:before{
+		  left: 37px;
+		  border:1px solid #FA9AA6;
+		}
+		.toggle-switch input[type=checkbox]:checked + label .toggle-track:after{
+		  content:'추천';
+		  left: 5px;
+		}
+		.comments-container{
+			display: block;
+			height: auto;
+			overflow: hidden;
+		}
+		.comment-wrap {
+			height: 110px;
+		}
+		.comment-title-wrap {
+			display: block;
+			font-family: '나눔스퀘어';
+			margin-top: 10px;
+			margin-left: 15px;
+			width: 100%;
+		}
+		.comment-ta-bt-wrap{
+			display: block;
+		}
+		.comment-ta-wrap, .comment-bt-wrap{
+			float: left;
+			height: 75px;
+	
+		}
+		#commentTA{
+			margin-top:10px;
+			margin-left: 15px;
+			margin-right: 5px;
+			width:600px; 
+			height: 70px;
+			
+		}
+		#comment_submit_bt{
+			margin-top:10px;
+			width:100px; 
+			height:75px;
+			background: rgb(243, 243, 243);
+	
+		}
+	</style>
+	<script>	
+		function check() {
+			//var comment = document.getElementsByName('comment').value;
+			//var comment = document.getElementsByName('comment');
+			var comment = document.getElementById('commentTA').value;
+			if (comment.length ==0){
+				alert("입력한 댓글이 없습니다.");
+				return false;
+			} 
+		}
+		function confirmDelete(){
+			var answer = confirm("정말 삭제하시겠습니까?");
+			var board_id = document.getElementById('board_id')
+			board_id =  board_id.innerHTML.replace(/(<span>|<\/span>)/gi, "");
+			if (answer==true) {
+				location.href="./"+board_id+ "/delete";
+			}
+		}
+		function confirmUpdate(){
+			var answer = confirm("정말 수정하시겠습니까?");
+			if (answer==true) {
+				f.submit();
+			}
+		}
+	</script>
+</head>
+<body>
+{% include 'header.html' %}
+{% if signin_ok_user ==  nname  %}
+	<div class="body_container">
+			<div class="nav_container">
+				<nav>
+				<div class="article-all-wrapper">
+					<button name="article-all" id="article-all-button" type="button" onclick="location.href='../../board'"><span id="article-all-span">전체 게시글</span></button>
+				</div>
+				<div class="article-parents-title">
+					<div class="article-parents-title"><strong>e스포츠</strong></div>
+					<div class="article-childs-title">
+						<div><li><button id="article-childs-item-button"><span id="article-childs-item-span" onclick="location.href='../../board/LCK 이야기'">LCK 이야기</span></button ></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/경기 평점'"><span id="article-childs-item-span">경기 평점</span></button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/인벤 칼럼'"><span id="article-childs-item-span">인벤 칼럼</span> </button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/승부 예측'"><span id="article-childs-item-span">승부 예측</span> </button></li></div>
+					</div>	
+					<div class="article-parents-title"><strong>팁&공략</strong></div>
+					<div class="article-childs-title">
+						<div><li><button id="article-childs-item-button"  onclick="location.href='../../board/[팁&공략] 공지'"><span id="article-childs-item-span">공지</span></button ></li></div>
+						<div><li><button id="article-childs-item-button" ><span id="article-childs-item-span" onclick="location.href='../../board/공략'">공략</span></button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/초보자 공략'"><span id="article-childs-item-span">초보자 공략</span> </button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/패치 노트'"><span id="article-childs-item-span">패치 노트</span> </button></li></div>
+					</div>	
+					<div class="article-parents-title"><strong>커뮤니티</strong></div>
+					<div class="article-childs-title">
+						<div><li><button id="article-childs-item-button"  onclick="location.href='../board/[커뮤니티] 공지'"><span id="article-childs-item-span">공지</span></button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/자유'"><span id="article-childs-item-span">자유</span></button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/질문'"><span id="article-childs-item-span">질문</span> </button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/뉴스'"><span id="article-childs-item-span">뉴스</span> </button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/버그'"><span id="article-childs-item-span">버그</span> </button></li></div>
+						<div><li><button id="article-childs-item-button"><span id="article-childs-item-span" onclick="location.href='../../board/파티모집'">파티모집</span> </button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/출석체크'"><span id="article-childs-item-span">출석체크</span> </button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/창작게시판'"><span id="article-childs-item-span">창작게시판</span> </button></li></div>
+					</div>
+				</div>
+				</nav>
+			</div>
+	
+		<section>
+		<div class="editor_container">
+		<main role="main" class="container">
+		
+			<div class="editor_top_container">
+				<label id="editor_top_label1">작성자: <span id="author">{{ nname }}<span><span id="board_id" style="display: none;">{{id}}</span></label><br/>
+				  <label id="editor_top_label2"> 게시판: {{ ccode }} | 작성일: {{ rdate | date:'m.d H:i'}} | 조회수: {{ lookup }} | 추천: {{ like }}</label>
+			</div>
+			
+			<div class="editor_main_conatainer">	
+				<div class="pt-1"></div>
+					<input id="editor_title_ta" type="text" name="title" value="{{ title }}">
+			<form name="f" action="{{id}}/article_update_ok" method="POST" >
+			{% csrf_token %}
+				<div class="pt-1">
+					<textarea style="line-height:100%;" id="summernote" name="contents">{{ contents }}</textarea>
+				</div>
+				<script>
+					$('#summernote').summernote({
+						placeholder: '내용을 입력해주세요',
+					  	tabsize: 1,
+					  	height: 600,
+						disableResizeEditor: true,
+					  	toolbar: [
+								// [groupName, [list of button]]
+								['fontname', ['fontname']],
+								['fontsize', ['fontsize']],
+								['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+								['color', ['forecolor','color']],
+								['table', ['table']],
+								['para', ['ul', 'ol', 'paragraph']],
+								['height', ['height']],
+								['insert',['picture','link','video']],
+						  	],
+							fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체', '210썸타임L', '210썸타임B', '나눔스퀘어L', '나눔스퀘어B',],
+							fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+				  	});
+			  	</script>                     	
+				<div class="pt-1 text-right">
+					<input class="btn btn btn-cancel" type="button" value="목록으로" onclick="location.href='../../board'">
+				</div>
+				<div class="pt-1 text-right">
+					<input class="btn btn btn-cancel" type="button" value="삭제" onclick="confirmDelete()">
+				</div>
+				<div class="pt-1 text-right">
+					<input class="btn btn btn-success" type="button" value="수정" onclick="confirmUpdate()">	
+				</div>
+				</form>
+		</main>	
+				<div class="comment-container">		
+					<!--create-->
+					{% if signin_ok_user %}
+					<div class="comment-wrap">
+						<div class="comment-title-wrap"><span style="font-family: '나눔스퀘어B';font-size:13px; font-weight: bold;">댓글쓰기</span>
+						</div>
+						<form name="cForm" id="cform" action="{{id}}/comments" method="POST">
+						{% csrf_token %}
+						<div class="comment-ta-bt-wrap">
+							<div class="comment-ta-wrap">
+								<textarea form="cform" name="comment" id="commentTA" placeholder="댓글을 작성하세요." required></textarea>
+							</div>
+							<div class="comment-bt-wrap">
+								<input id="comment_submit_bt" type="submit" value="등록">	
+							</div>
+						</div>
+						</form>
+					</div>
+					
+					{% else %}
+					<div class="comment-wrap">
+						<div class="comment-title-wrap"><span style="font-family: '나눔스퀘어B';font-size:13px; font-weight: bold;"></span>
+						</div>
+						<form name="f" id="cform" action="{{id}}/comments/" method="POST">
+						{% csrf_token %}
+						<div class="comment-ta-bt-wrap">
+							<div class="comment-ta-wrap">
+								<textarea form="cform" name="comment" id="commentTA" placeholder="로그인이 필요합니다." disabled></textarea>
+							</div>
+							<div class="comment-bt-wrap">
+								<input id="comment_submit_bt" type="submit" value="등록" disabled>	
+							</div>
+						</div>
+						</form>
+					</div>
+					{% endif %}
+					<hr>
+					<!--생략-->
+					<div style="display: block;margin-left: 20px;" >
+					<div style="display: block; font-size: 15px;"><strong>댓글 목록</strong></div>
+					<!--read-->
+					{% if comments %}
+						<div style="display: block; font-size: 14px;"><p><b>{{ comments | length }}개의 댓글이 있습니다.</b></p></div>
+					{% endif %}
+					</div>
+					<ul>
+					  {% for comment in comments %}
+					  <a name="comment_{{comment.user_id}}"></a>
+						<li>
+							<div style="display: block; width: 800px; line-height: 40px; border-bottom: solid 0.5px gray; font-style:'나눔스퀘어L'">
+								<div style="display: inline-block; width: 100px; background: rgb(255, 255, 255); text-align: center; font-style:'나눔스퀘어L';font-size:13px;">
+									<span> {{ comment.user_id }}</span>
+								</div>
+								<div style="display: inline-block;width: 450px; padding-left: 10px; background: rgb(255, 255, 255);font-style:'나눔스퀘어L';font-size:13px; color:rgb(80, 80, 80);"><span> {{ comment.comment }} </span></div>
+								<div style="display: inline-block; width: 120px; background: rgb(255, 255, 255);">
+									<span style="font-size:11px;color:rgb(104, 103, 103);font-style:'나눔스퀘어L'">(작성시간: {{comment.created_at | date:'m.d H:i'}}) </span>
+								</div>
+						 {% if signin_ok_user == comment.user_id %}
+								   <div style="display: inline-block;">
+									 <form action="./{{id}}/comments/{{comment.id}}/delete" method="POST" class="d-inline">
+									   {% csrf_token %}
+									   <input style="background: white; font-style:'나눔스퀘어L';font-size:13px; border: solid .1px gray; line-height: 30px;" type="submit" value="댓글삭제">
+									 </form>
+								   </div>
+						   {% endif %}
+							</div>
+						  <!--delete-->
+						 
+						</li>
+					  {% empty %}
+						<p>댓글이 없어요..</p>
+					  {% endfor %}
+					</ul>
+				</div>    	
+			</div>
+		</section>
+		<div class="right_container"></div>
+	</div>
+{% else %}
+	<div class="body_container">
+			<div class="nav_container">
+				<nav>
+				<div class="article-all-wrapper">
+					<button name="article-all" id="article-all-button" type="button" onclick="location.href='../../board'"><span id="article-all-span">전체 게시글</span></button>
+				</div>
+				<div class="article-parents-title">
+					<div class="article-parents-title"><strong>e스포츠</strong></div>
+					<div class="article-childs-title">
+						<div><li><button id="article-childs-item-button"><span id="article-childs-item-span" onclick="location.href='../../board/LCK 이야기'">LCK 이야기</span></button ></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/경기 평점'"><span id="article-childs-item-span">경기 평점</span></button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/인벤 칼럼'"><span id="article-childs-item-span">인벤 칼럼</span> </button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/승부 예측'"><span id="article-childs-item-span">승부 예측</span> </button></li></div>
+					</div>	
+					<div class="article-parents-title"><strong>팁&공략</strong></div>
+					<div class="article-childs-title">
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/[팁&공략] 공지'"><span id="article-childs-item-span">공지</span></button ></li></div>
+						<div><li><button id="article-childs-item-button" ><span id="article-childs-item-span" onclick="location.href='../../board/공략'">공략</span></button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/초보자 공략'"><span id="article-childs-item-span">초보자 공략</span> </button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/패치 노트'"><span id="article-childs-item-span">패치 노트</span> </button></li></div>
+					</div>	
+					<div class="article-parents-title"><strong>커뮤니티</strong></div>
+					<div class="article-childs-title">
+						<div><li><button id="article-childs-item-button"  onclick="location.href='../../board/[커뮤니티] 공지'"><span id="article-childs-item-span">공지</span></button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/자유'"><span id="article-childs-item-span">자유</span></button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/질문'"><span id="article-childs-item-span">질문</span> </button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/뉴스'"><span id="article-childs-item-span">뉴스</span> </button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/버그'"><span id="article-childs-item-span">버그</span> </button></li></div>
+						<div><li><button id="article-childs-item-button"><span id="article-childs-item-span" onclick="location.href='../../board/파티모집'">파티모집</span> </button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/출석체크'"><span id="article-childs-item-span">출석체크</span> </button></li></div>
+						<div><li><button id="article-childs-item-button" onclick="location.href='../../board/창작게시판'"><span id="article-childs-item-span">창작게시판</span> </button></li></div>
+					</div>
+				</div>
+				</nav>
+			</div>
+		
+		<section>
+		{% csrf_token %}
+		<div class="editor_container">
+			<div class="editor_top_container">
+				<div class="editor_top_label_wrapper">
+					<label id="editor_top_label1">작성자: {{ nname }} </label><br/>
+				  	<label id="editor_top_label2"> 게시판: {{ ccode }} | 작성일: {{ rdate | date:'m/d H:i'}} | 조회수: {{ lookup }} | 추천: {{ like }}</label>
+				</div>
+			</div>
+			<form name="likeForm" action="{{id}}/like" method="post">  
+			{% if vote.board_id == id and vote.voter == signin_ok_user %}
+			<div id="toggle-container">	
+				<p style="font-family: '나눔스퀘어L'; color:white;"> 이미 추천하신 게시물입니다.</p>
+			</div>
+			{% else %}
+				{% if signin_ok_user  %}
+				<div id="toggle-container">
+					<div class="toggle-switch">
+						<input type="checkbox" name="like" id="chkTog">
+						<label for="chkTog">
+							<span class="toggle-track"></span>
+						</label>					
+					</div>
+				</div>	
+				{% else %}
+				<div id="toggle-container">
+					<span style="font-family: '나눔스퀘어L'; color:white;">게시물 추천은 로그인시 가능합니다.</span>
+				</div>
+				{% endif %}
+			{% endif %}
+			<div class="editor_main_conatainer">	
+				<div class="pt-1"></div>
+					<input id="editor_title_ta" type="text" name="title" placeholder="제목을 입력하세요" value="{{ title }}" disabled/>
+				
+				<div class="pt-1">
+					<textarea id="summernote" name="contents" disabled>{{ contents }}</textarea>
+				</div>
+				<script>
+					$('#summernote').summernote({
+						  height: 580,
+						disableResizeEditor: true,
+						  
+					  });
+					  $('#summernote').summernote('disable');
+				  </script>
+				
+					 {% csrf_token %}               	   
+				<div class="pt-1 text-right">
+					{% if vote.board_id == id and vote.voter == signin_ok_user %}
+					<input class="btn btn btn-cancel" type="button" value="목록으로" onclick="location.href='../../board'">
+					{% else %}
+					{% if signin_ok_user  %}
+					<input class="btn btn btn-cancel" type="button" value="목록으로" onclick="location.href='../../board'">
+					<input class="btn btn btn-cancel" type="submit" value="확인"/>
+					<span style="font-style: '나늠스퀘어L'; font-size: 11px;  color: rgb(188, 188, 188); float: right;">( 추천을 원하시면 추천 버튼을 on으로 바꾼 뒤 확인을 누르세요. )&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					{% else %}
+					<input class="btn btn btn-cancel" type="button" value="목록으로" onclick="location.href='../../board'">
+					{% endif %}
+					{% endif %}
+				</div>
+				  </form>
+			</div>
+			<div class="comment-container">		
+				<!--create-->
+				{% if signin_ok_user %}
+				<div class="comment-wrap">
+					<div class="comment-title-wrap"><span style="font-family: '나눔스퀘어B';font-size:13px; font-weight: bold;">댓글쓰기</span>
+					</div>
+				<form name="cForm" id="cform" action="{{id}}/comments" method="POST">
+					{% csrf_token %}
+					<div class="comment-ta-bt-wrap">
+						<div class="comment-ta-wrap">
+							<textarea form="cform" name="comment" id="commentTA" placeholder="댓글을 작성하세요." required></textarea>
+						</div>
+						<div class="comment-bt-wrap">
+							<input id="comment_submit_bt" type="submit" value="등록">	
+						</div>
+					</div>
+				</form>
+				</div>			
+				{% else %}
+				<div class="comment-wrap">
+					<div class="comment-title-wrap"><span style="font-family: '나눔스퀘어B';font-size:13px; font-weight: bold;"></span>
+					</div>
+					<div class="comment-ta-bt-wrap">
+						<div class="comment-ta-wrap">
+							<textarea form="cform" name="comment" id="commentTA" placeholder="로그인이 필요합니다." disabled></textarea>
+						</div>
+						<div class="comment-bt-wrap">
+							<input style="background: white; font-style:'나눔스퀘어L'; border: solid .1px gray;" id="comment_submit_bt" type="submit" value="등록" disabled>	
+						</div>
+					</div>
+				</div>
+				{% endif %}
+				<hr>
+				<!--생략-->
+				<div style="display: block;margin-left: 20px;" >
+				<div style="display: block; font-size: 15px;"><strong>댓글 목록</strong></div>
+				<!--read-->
+				{% if comments %}
+					<div style="display: block; font-size: 14px;"><p><b>{{ comments | length }}개의 댓글이 있습니다.</b></p></div>
+				{% endif %}
+				</div>
+				<ul>
+				  {% for comment in comments %}
+				  <a name="comment_{{comment.user_id}}"></a>
+					<li>
+						<div style="display: block; width: 800px; line-height: 40px; border-bottom: solid 0.5px gray; font-style:'나눔스퀘어L'">
+					    	<div style="display: inline-block; width: 100px; background: rgb(255, 255, 255); text-align: center; font-style:'나눔스퀘어L';font-size:13px;">
+								
+								<span> {{ comment.user_id }}</span>
+							</div>
+							<div style="display: inline-block;width: 450px; padding-left: 10px; background: rgb(255, 255, 255);font-style:'나눔스퀘어L';font-size:13px; color:rgb(80, 80, 80);"><span> {{ comment.comment }} </span></div>
+							<div style="display: inline-block; width: 120px; background: rgb(255, 255, 255);">
+								<span style="font-size:11px;color:rgb(104, 103, 103);font-style:'나눔스퀘어L'">(작성시간: {{comment.created_at | date:'m.d H:i'}}) </span>
+							</div>
+							
+					 {% if signin_ok_user == comment.user_id %}
+					   		<div style="display: inline-block;">
+						 		<form action="./{{id}}/comments/{{comment.id}}/delete" method="POST" class="d-inline">
+						   		{% csrf_token %}
+						   		<input style="background: white; font-style:'나눔스퀘어L';font-size:13px; border: solid .1px gray; line-height: 30px;" type="submit" value="댓글삭제">
+						 		</form>
+					   		</div>
+					   {% endif %}
+						</div>
+					  <!--delete-->
+					 
+					</li>
+				  {% empty %}
+					<p>댓글이 없어요..</p>
+				  {% endfor %}
+				</ul>
+			</div>  
+		
+		</section>
+		<div class="right_container"></div>
+	</div>
+{% endif %}
+{% include 'footer.html' %}
+</body>
+</html>

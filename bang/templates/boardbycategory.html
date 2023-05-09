@@ -1,0 +1,230 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge; chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title>롤방 게시판</title>
+	<link rel="shortcut icon" href="#">
+	<link rel="stylesheet" href="{% static 'css/nav_category.css' %}">
+	<link rel="stylesheet" href="{% static 'css/board.css' %}">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="{% static 'js/trim.js' %}"></script>
+</head>
+<body>
+{% include 'header.html' %}
+<div class="body_container">
+	<div class="nav_container">
+		<nav>
+		<div class="article-write-wrapper">
+			<button id="article-write-button" type="button"><span id="article-write-span" onclick="location.href='/bang/League_of_Legends/write'">글쓰기</span></button>
+		</div>
+
+		<div class="article-all-wrapper">
+			<button id="article-all-button" type="button" onclick="location.href='../board/'"><span id="article-all-span">전체 게시글</span></button>
+		</div>
+		<div class="article-parents-title">
+			<div class="article-parents-title"><strong>e스포츠</strong></div>
+			<div class="article-childs-title">
+				<div><li><button id="article-childs-item-button"><span id="article-childs-item-span" onclick="location.href='../board/LCK 이야기'">LCK 이야기</span></button ></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='../board/경기 평점'"><span id="article-childs-item-span">경기 평점</span></button></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='../board/인벤 칼럼'"><span id="article-childs-item-span">인벤 칼럼</span> </button></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='../board/승부 예측'"><span id="article-childs-item-span">승부 예측</span> </button></li></div>
+			</div>	
+			<div class="article-parents-title"><strong>팁&공략</strong></div>
+			<div class="article-childs-title">
+				<div><li><button id="article-childs-item-button" onclick="location.href='../board/[팁&공략] 공지'"><span id="article-childs-item-span">공지</span></button ></li></div>
+				<div><li><button id="article-childs-item-button" ><span id="article-childs-item-span" onclick="location.href='../board/공략'">공략</span></button></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='../board/초보자 공략'"><span id="article-childs-item-span">초보자 공략</span> </button></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='../board/패치 노트'"><span id="article-childs-item-span">패치 노트</span> </button></li></div>
+			</div>	
+			<div class="article-parents-title"><strong>커뮤니티</strong></div>
+			<div class="article-childs-title">
+				<div><li><button id="article-childs-item-button" onclick="location.href='../board/[커뮤니티] 공지'"><span id="article-childs-item-span">공지</span></button></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='../board/자유'"><span id="article-childs-item-span">자유</span></button></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='../board/질문'"><span id="article-childs-item-span">질문</span> </button></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='../board/뉴스'"><span id="article-childs-item-span">뉴스</span> </button></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='../board/버그'"><span id="article-childs-item-span">버그</span> </button></li></div>
+				<div><li><button id="article-childs-item-button"><span id="article-childs-item-span" onclick="location.href='../board/파티모집'">파티모집</span> </button></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='../board/출석체크'"><span id="article-childs-item-span">출석체크</span> </button></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='../board/창작게시판'"><span id="article-childs-item-span">창작게시판</span> </button></li></div>
+			</div>
+			</div>
+			</nav>
+    	</div>
+	
+	<section>
+		<div class="center_container">
+			{% if ccode %}
+			<div class="category-title-wrapper"><span id="show_all_span">{{ccode}}<span></div>
+			{% else %}
+			<div class="category-title-wrapper"><span id="show_all_span">전체 게시글<span></div>
+			{% endif %}
+			
+			<div class="search-wrapper">
+				<div class="order-bt-wrapper">
+				<form name="orderForm" method="get">
+				{% csrf_token %}
+					<label>
+						<input type="radio" name="order" id="orderbyrank" value="rank">인기순</input>
+					</label>
+					<label>
+						<input type="radio" name="order" id="orderbynew" value="new" >최신순</input>
+					</label>
+					<label>
+						<input type="radio" name="order" id="orderbyvote" value="vote">추천순</input>
+					</label>
+				</form>
+				</div>
+				
+				<div class="board_s">
+					<div class="input-botton-wrapper">
+						<div class="searchBt-wrapper">
+							<input id="btn-search" type="button" value="?">
+						</div>				
+						<div class="input-wrapper">
+							<input type="text" id="search_kw" name="input" size=20 placeholder="게시글검색" value="{{ kw|default_if_none:''}}">
+						</div>
+					</div>
+					<div class="select-wrapper">
+						<select id="select_q" name="q">
+							<option value="all" selected>전체</option>
+							<option value="title">제목</option>
+							<option value="author">작성자</option>
+							<option value="titleAndContent">제목+내용</option>
+							<option value="content">내용</option>
+						</select>
+					</div>
+				</div>
+				
+			</div>
+			
+			<div class="board-wrapper">
+				<div class="board">
+					<ul class="board_row title_row">
+						<li style="text-align: left;" id="board_li" class="w350"><span>제목</span></li>
+						<li id="board_li" class="w150">작성자</li>
+						<li id="board_li" class="w120">작성일</li>
+						<li id="board_li" class="w100">조회수</li>
+						<li id="board_li" class="w100">추천</li>
+					</ul>
+				</div>
+				<div class="board">
+					<!--  게시글 들어오는 위치 -->
+					{% if page_obj %}
+					{% for board in page_obj %}
+					<ul class="board_row data_row">		
+						<li style="text-align: left; padding-left:5px;" id="board_li" class="w350"><div class="contents-category-wrapper"><label>{{board.ccode}}</label></div>&nbsp;<div class="contents-title-wrapper"><p><a id="contents-title-id" href="{% url 'bang:detail' board.id %}">{{board.title}}</a></p></div><div class="comments-count-wrapper">{% if board.comment_count  %}<span style="color:rgb(152, 0, 255);">({{ board.comment_count }})</span>{% endif %}</div> </li>
+						<li id="board_li" class="w150" style="line-height: 40px;"><span>{{board.nname}}</span></li>
+						<li id="board_li" class="w120"><span id="date">{{board.rdate |  date:'m.d H:i'}}</span></li>
+						<li id="board_li" class="w100"  style="line-height: 40px;"><span>{{board.lookup}}</span></li>
+						<li id="board_li" class="w100" style="line-height: 40px;"><span>{{board.like}}</span></li>
+					</ul>
+					{% endfor %}
+					{% endif %}
+				</div>
+			</div>
+			<div class="pagination-container">
+				<div class="pagination">
+					<!-- 이전페이지 -->
+					{% if page_obj.has_previous %}
+					<li id="page_li" class="page-item">
+						<a class="before_move page-link" data-page="{{ page_obj.previous_page_number }}" href="javascript:void(0)">이전</a>
+						<!-- href로 뎁스 설정 -->
+					</li>
+					{% else %}
+					<li id="page_li" class="page-item disabled">
+						<a class="before_move" tabindex="-1" aria-disabled="true" href="javascript:void(0)">이전</a>
+					</li>
+					{% endif %}
+					<div class="block">
+						<!-- 블록 추가로 들어오는 위치 -->
+						<!-- 페이지리스트 -->
+						{% for page_number in page_obj.paginator.page_range %}
+						{% if page_number == page_obj.number %}
+						<li cid="page_li" class="page-item active" aria-current="page">
+							<a class="page-link" data-page="{{ page_number }}" href="javascript:void(0);">{{ page_number }}</a>&nbsp;
+						</li>
+						{% else %}
+						<li id="page_li" class="page-item">
+							<a class="page-link" data-page="{{ page_number }}" href="javascript:void(0)">{{ page_number }}</a>&nbsp;
+						</li>
+						{% endif %}
+						{% endfor %}
+					</div>
+						<!-- 다음페이지 -->
+						{% if page_obj.has_next %}
+						<li id="page_li" class="page-item">
+							<a class="next_move page-link" data-page="{{ page_obj.next_page_number }}" href="javascript:void(0)">다음</a>
+						</li>
+						{% else %}
+						<li id="page_li" class="page-item disabled">
+							<a class="next_move" tabindex="-1" aria-disabled="true" href="javascript:void(0)">다음</a>
+						</li>
+						{% endif %}
+				</div>	
+				<!-- 페이징 끝 -->
+				{% block form %}
+				<form id="searchForm" action="{% url 'bang:search' %}" method="get">
+					<input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}"/>
+					<input type="hidden" id="q" name="q" value="{{ query }}"/>
+ 					<input type="hidden" id="qpage" name="qpage" value="{{ page }}"/>
+ 				</form>
+				 <form id="orderForm" action="../board/{{ccode}}"  method="get">
+					 <input type="hidden" id="order" name="order" value="{{ order }}"/>
+					 <input type="hidden" id="page" name="page" value="{{ page }}"/>
+				 </form>
+				 {% endblock %}
+				 {% block script %}
+				 <script type="text/javascript">
+					 const page_elements = document.getElementsByClassName("page-link");
+					 
+					  Array.from(page_elements).forEach(function (element) { 	
+						  element.addEventListener('click', function() {
+							  document.getElementById('page').value = this.dataset.page;
+							  document.getElementById('orderForm').submit();
+					 
+						  });		 
+					 });
+					
+					const btn_search = document.getElementById('btn-search');
+					btn_search.addEventListener('click', function() {
+						document.getElementById('kw').value = document.getElementById('search_kw').value;
+						document.getElementById('q').value= document.getElementById('select_q').value;					
+						document.getElementById('qpage').value=1;	//검색버튼 클릭시 1페이지부터 조회		
+						document.getElementById('searchForm').submit();
+					
+
+					});
+					const rank_radio = document.getElementById('orderbyrank');
+					rank_radio.addEventListener('click', function() {
+						document.getElementById('order').value = document.getElementById('orderbyrank').value;
+						document.getElementById('page').value=1;
+						document.getElementById('orderForm').submit();
+					});
+					const new_radio = document.getElementById('orderbynew');
+					new_radio.addEventListener('click', function() {
+						document.getElementById('order').value = document.getElementById('orderbynew').value;
+						document.getElementById('page').value=1;
+						document.getElementById('orderForm').submit();
+					});
+					const vote_radio = document.getElementById('orderbyvote');
+					vote_radio.addEventListener('click', function() {
+						document.getElementById('order').value = document.getElementById('orderbyvote').value;
+						document.getElementById('page').value=1;
+						document.getElementById('orderForm').submit();
+					});
+			
+				 </script>
+				 {% endblock %}
+			</div>
+		</div>
+	</section>
+	<div class="right_container">
+	</div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

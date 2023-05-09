@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge; chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title>롤방 DB</title>
+	<link rel="shortcut icon" href="#">
+	<link rel="stylesheet" href="{% static 'css/nav_category.css' %}">
+	<link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+	<link rel="stylesheet" href="{% static 'css/champion.css' %}">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="{% static 'js/champion.js' %}"></script>
+</head>
+<body>
+{% include 'header.html' %}
+<div class="body_container">
+	<div class="nav_container">
+		<nav>
+		<div class="article-parents-title">
+			<div class="article-parents-title"><strong id="category-super">DB</strong></div>
+			<div class="article-childs-title">
+				<div><li><button id="article-childs-item-button" onclick="location.href='/bang/League_of_Legends/db/champion'"><span class="champion-db" id="article-childs-item-span">챔피언</span></button ></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='/bang/League_of_Legends/db/map'"><span class="game-db" id="article-childs-item-span">게임 모드</span></button></li></div>
+			</div>	
+		</div>
+		</nav>
+	</div>	
+	<section>
+		<div class="center_container">
+			<div class="category-title-wrapper">
+				<label id="category-title-label1"><strong>챔피언</strong></label>
+				<label id="category-title-label2"><strong>{{ champions|length }}</strong></label>
+			</div>
+			<div class="role-category-wrapper">
+				<label id="role-category-label">역할</label>
+				<input type="button" class="rolename" id="rolename" value="전체" onclick="location.href='/bang/League_of_Legends/db/champion'">
+				<input type="button" class="rolename" id="rolename1" onclick="sortbyrole1()" value="전사"/>
+				<input type="button" class="rolename" id="rolename2" onclick="sortbyrole2()" value="탱커"/>
+				<input type="button" class="rolename" id="rolename3" onclick="sortbyrole3()" value="암살자"/>
+				<input type="button" class="rolename" id="rolename4" onclick="sortbyrole4()" value="마법사"/>
+				<input type="button" class="rolename" id="rolename5" onclick="sortbyrole5()" value="원거리"/>
+				<input type="button" class="rolename" id="rolename6" onclick="sortbyrole6()" value="서포터"/>
+			</div>
+			<div class="champion-list-wrapper">
+				{% for champion in champions %}
+				<form name="f" action="ch_details" method="POST">
+				<ul>
+					<li>
+						<a href="/bang/League_of_Legends/db/champion/ch_details/{{champion.name}}">
+							<div class="champion_container">
+								{% if champion.image %}
+							
+								<div class="card_thumnail"><img style="width:100px;height:100px;" src="/media/{{champion.image}}"></div>
+								{% endif %}
+								<div class="card_content_wrapper">
+									<div class="card_content-name"><span value="champ_name" id="name_span">{{champion.name}}</span><br/><span id="nname_span">{{champion.nname}}</span></div>
+									<div class="card_content-role"><span id="role_span1">역할</span>&nbsp;<span id="role_span2">{{champion.role}}</span></div>
+									<div class="card_content-loc"><span id="loc_span1">소속</span>&nbsp;<span id="loc_span2">{{champion.loc}}</span>
+									</div>
+								</div>
+							</div>
+						</a>
+					</li>
+				</ul>
+				</form>
+				{% endfor %}
+			</div>
+			
+			<div class="controll_more">
+				<a class="btn_open" id="moreBt" href="#" onclick="showUnits();return false">더 보기</a>&nbsp;
+			</div>
+			
+			<div class="controll_hide">
+				<a class="btn_close hide" id="hideBt" href="#">감추기</a>
+			</div>
+			<div class="pagination"></div>
+		</div>
+	</section>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+		<link rel="stylesheet" href="{% static 'css/update.css' %}">
+		<meta charset='UTF-8'>
+		<title>LOLbang : 회원정보수정인증</title>
+		<script src="{% static '/js/trim.js' %}"></script>
+		<script language="javascript"> 
+			function check(){
+
+				var pwdval = f.pwd.value;
+				pwdval = trim(pwdval);
+
+				if(pwdval.length == 0){
+					alert("현재비밀번호를 넣어주세요");
+					f.pwd.value = "";
+					f.pwd.focus();
+					return false;
+				}else{
+					pass = checkByteLen(pwdval, 25);
+					if(!pass){
+						alert("비밀번호가 너무 길어요");
+						f.pwd.focus();
+						return false;
+					}
+				}
+				f.submit();
+			}
+		
+			function checkByteLen(str, size){
+				var byteLen = getByteLen(str);
+				if(byteLen <= size){
+					return true;
+				}else{
+					return false;
+				}
+			}
+			function getByteLen(str){
+			   return str.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
+			}
+			
+			function enterCheck(elm){
+				if(event.keyCode == 13){
+					if(elm == f.pwd){
+
+					}else{
+						check();
+					}
+				}
+			}
+
+
+		</script>
+	
+	</head>
+	<body onload="document.f.email.focus()">
+		<header>
+			<center>         
+				<div><a href='../home/' class="logo"><img src="{% static 'imgs/logo.png' %}"></a></div>
+				<div class="editmember">정보수정인증</div>
+			</center>
+		</header>
+		<form name="f" action="{% url 'bang:verify_pwd_ok' %}" method="post">
+		{% csrf_token %}
+		<center>
+				<div>
+					<div class="container" >
+						<div>
+							<td><h4 align=left>현재비밀번호</h4></td>
+							<input class="input" type="password" name="pwd" maxlength="15" placeholder="현재비밀번호" onkeydown="enterCheck(this)">
+						</div>
+						<label>{{ check_ok }}</label>
+						<div>
+							<input class="revice_button" type="button" value="확인" onclick="check()">
+							<input class="exit_button" type="button" value="취소" onclick="history.back()" >
+						</div>
+					</div>
+				</div>
+			</form>
+		</center>
+	</body>
+</html>

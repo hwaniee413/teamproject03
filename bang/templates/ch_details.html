@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge; chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title>롤방 게시판</title>
+	<link rel="shortcut icon" href="#">
+	<link rel="stylesheet" href="{% static 'css/nav_category.css' %}">
+	<link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+	<link rel="stylesheet" href="{% static 'css/ch_detail.css' %}">
+</head>
+<body>
+{% include 'header.html' %}
+<div class="body_container">
+	<nav>
+	<div class="nav_container">
+		<div class="article-parents-title">
+			<div class="article-parents-title"><strong id="category-super">DB</strong></div>
+			<div class="article-childs-title">
+				<div><li><button id="article-childs-item-button" onclick="location.href='/bang/League_of_Legends/db/champion'"><span class="champion-db" id="article-childs-item-span">챔피언</span></button ></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='/bang/League_of_Legends/db/map'"><span class="game-db" id="article-childs-item-span">게임 모드</span></button></li></div>
+			</div>	
+		</div>
+	</div>
+	</nav>
+	<section>
+		<div class="center_container">
+			<div class="category-title-wrapper">
+				<label id="category-title-label1"><strong>챔피언</strong></label>
+				<label id="category-title-label2"><strong>{{ champions|length }}</strong></label>
+			</div>
+			<div class="role-category-wrapper">
+				<label id="role-category-label">역할</label>
+				<input type="button" class="rolename" id="rolename" value="전체" onclick="location.href='/bang/League_of_Legends/db/champion'">
+				<input type="button" class="rolename" id="rolename1" onclick="sortbyrole1()" value="전사"/>
+				<input type="button" class="rolename" id="rolename2" onclick="sortbyrole2()" value="탱커"/>
+				<input type="button" class="rolename" id="rolename3" onclick="sortbyrole3()" value="암살자"/>
+				<input type="button" class="rolename" id="rolename4" onclick="sortbyrole4()" value="마법사"/>
+				<input type="button" class="rolename" id="rolename5" onclick="sortbyrole5()" value="원거리"/>
+				<input type="button" class="rolename" id="rolename6" onclick="sortbyrole6()" value="서포터"/>
+			</div>
+			
+			<div class="champion-list-wrapper">
+				<div class="minicard_container">
+					<ul>
+						{% for champion in champions %}
+						{% if champion.image %}
+						<li id="card_thmbnail_li"><div class="card_thumbnail"><img id="card_thumbnail_img" src="/media/{{champion.image}}"></div></li>
+						{% endif %}
+						{% endfor%}
+					</ul>
+				</div>
+			</div>
+					
+			<div class="champion-details-wrapper">
+				<div class="champion-details-title">
+					<div class="champion-thumbnail-wrapper">
+						<img id="champion_img" src="/media/{{champ.image}}"><br/>
+					</div>
+					<div class="champion-name-wrapper">
+						<div class="champion-name">{{champ.name}}</div>
+						<div class="champion-nname">{{champ.nname}}</div>
+					</div>
+				</div>
+				<div class="champion-details-body1">
+					<table id="table1">
+						<tr><td><span id="td1">역할</span></td><td> {{champ.role}}</td></tr>
+						<tr><td><span id="td1">소속</span></td><td> {{champ.loc}}</td></tr>
+					</table>
+				</div>
+				{% if champ.bigimage %}
+				<center>
+				<img style="width:450px; height:300px;" src="/media/{{champ.bigimage}}">
+				</center>
+				{% endif %}
+				<div class="champion-details-body2">
+					<h3>능력치</h3>
+					<table id="tabel2">
+						<th></th>
+						<th></th>
+						<tr><td><span id="td1">체력</span></td><td> {{champ.health}}</td></tr>
+						<tr><td><span id="td1">체력 재생</span></td><td> {{champ.recover}}</td></tr>
+						<tr><td><span id="td1">공격력</span></td><td> {{champ.attack}}</td></tr>
+						<tr><td><span id="td1">방어력</span></td><td> {{champ.defence}}</td></tr>
+						<tr><td><span id="td1">마법 저항력</span></td><td> {{champ.resist}}</td></tr>
+						<tr><td><span id="td1">공격 속도</span></td><td> {{champ.aspeed}}</td></tr>
+						<tr><td><span id="td1">이동 속도</span></td><td> {{champ.mspeed}}</td></tr>
+					</table>
+				</div>
+			</div>
+			<div class="backwardBt_div"><input id="backwardBt" type="button" onclick="history.back()" value="뒤로가기"/></div>
+			<div class="pagination">
+				
+			</div>
+		</div>
+	</section>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

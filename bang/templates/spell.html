@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge; chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title>롤방 게시판</title>
+	<link rel="shortcut icon" href="#">
+	<style>
+		@font-face  {
+			font-family:'나눔스퀘어L';
+			font-style:'normal';
+			font-weight: 400;
+			src: url("{% static '/fonts/NanumSquareOTFLight.woff' %}");
+		}
+		@font-face  {
+			font-family:'210썸타임L';
+			font-style:'normal';
+			font-weight: 400;
+			src: url("{% static '/fonts/210-Sometime-OTF-L.woff' %}");
+		}
+		.body_container {
+			display: block;
+			width: 1100px;
+			height: 1100px;
+			margin: auto;
+			background:linear-gradient(to top, rgba(153,153,255,0.4), rgba(255,255,255,0.6));
+		}
+		.nav_container, .center_container, .right_container {
+			margin-top: 20px;
+			border-radius: 30px;
+		}
+		.nav_container, .right_container  {
+			float: left;
+			border: solid 1px  gold;
+			width: 215px;
+			height: 1050px;
+			
+		}
+		.center_container {
+			float: left;
+			border: solid 1px gold;
+			width: 590px;
+			height: 1050px;
+		}
+		
+		.nav_container {
+			background: white;
+		}
+		.center_container, .right_container {
+			margin-left: 36px;
+		}
+		
+		.category-title-wrapper, .search-wrapper, .board-wrapper, .pagination{
+			border: solid 1px purple;
+			border-radius: 15px;
+			width: 570;
+			background: rgba(255,255,255,0.9);
+		}
+		.category-title-wrapper {
+			height: 70px;
+		}
+		.search-wrapper, .pagination {
+			height: 100px;
+		}
+		.board-wrapper {
+			height: 650px;
+		}
+		.search-wrapper, .board-wrapper, .pagination{
+			margin-top: 30px;
+		}
+		.article-write-wrapper, .article-all-wrapper, .article-parents-title {
+			display: block;
+			margin-top: 10%;
+			margin-left: 10%;
+		}
+		.article-parents-title  {
+			margin-bottom: 3%;
+		}
+		#article_write_button{
+			border: none;
+			width: 160px;
+			height: 40px;
+			border-radius: 10px;
+			background: rgba(0,0,0,9.9);		
+		}
+		#article-all-button {
+			border: none;
+			width: 160px;
+			height: 40px;
+			background-color: white;			
+		}
+		#article-childs-item-button {
+			border: none;
+			width: 100px;
+			height: 40px;
+			text-align: left;
+			background-color: white;			
+		}
+		.champion-db {
+			background-color: orange;
+			color: navy;
+		}
+		#article-childs-item-span:hover {
+			background-color: navy;
+			color: white;
+			cursor: pointer;			
+		}
+		
+		
+		#article-write-span, #article-all-span {
+			font-family: '나눔스퀘어L';
+			font-size: 15px;
+			font-weight: 700;
+		}
+		#article-childs-item-span {
+			font-family: '나눔스퀘어L';
+			font-size: 13px;
+			font-weight: 700;
+		}
+		#article-childs-item-span {
+			text-align: left;
+		}
+		#article-write-span{
+			color: white;
+			border-radius: 10px;
+			background: rgba(0,0,0,9.9);
+		}
+		#article-all-span {
+			color:rgb(14, 21, 80);
+		}
+		strong {
+			font-family: '210썸타임L';
+			font-size: 20px;
+			font-weight: bold;
+			color:navy;
+		}
+		li {
+			list-style-type: circle;
+		}
+	</style>
+</head>
+<body>
+{% include 'header.html' %}
+<div class="body_container">
+	<div class="nav_container">
+		<div class="article-parents-title">
+			<div class="article-parents-title"><strong>DB</strong></div>
+			<div class="article-childs-title">
+				<div><li><button id="article-childs-item-button" onclick="location.href='/bang/League_of_Legends/db/champion'"><span class="champion-db" id="article-childs-item-span">챔피언</span></button ></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='/bang/League_of_Legends/db/map'"><span class="game-db" id="article-childs-item-span">게임 모드</span></button></li></div>
+				<div><li><button id="article-childs-item-button"><span class="spell-db" id="article-childs-item-span" onclick="location.href='/bang/League_of_Legends/db/spell'">소환사 주문</span> </button></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='/bang/League_of_Legends/db/rune'"><span class="rune-db" id="article-childs-item-span">룬</span> </button></li></div>
+				<div><li><button id="article-childs-item-button"><span class="item-db"  id="article-childs-item-span">아이템</span> </button></li></div>
+				<div><li><button id="article-childs-item-button"><span class="monster-db" id="article-childs-item-span">몬스터</span> </button></li></div>
+				<div><li><button id="article-childs-item-button"><span class="extra-db" id="article-childs-item-span">기타</span> </button></li></div>
+			</div>	
+		</div>
+	</div>
+	<section>
+		<div class="center_container">
+			<div class="category-title-wrapper">
+				<p> 소환사 주문 </p>
+			</div>
+			<div class="search-wrapper"></div>
+			<div class="board-wrapper"></div>
+			<div class="pagination"></div>
+		</div>
+	</section>
+	<div class="right_container">
+	</div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

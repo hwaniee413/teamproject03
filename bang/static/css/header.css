@@ -1,0 +1,152 @@
+
+
+.pseudo-left-div, .pseudo-right-div{
+	position: absolute;
+	top:48px;
+	width:50%;
+	height: 350px;
+	z-index: 0;
+}
+.pseudo-left-div{
+	left: 0px;	
+	background: linear-gradient(to right, rgb(32, 165, 250), rgb(76,76,89))
+}
+.pseudo-right-div{	
+	right: 0px;
+	background: linear-gradient(to left, rgb(32, 165, 250), rgb(76,76,89))
+}
+.container_center {
+	display: block;
+	width: 1150px;
+	height: 390px;
+	top:0px;
+	margin: auto;
+}
+.inner_top {
+	width: 100px;
+	height: 25px;
+	background-color: white;
+
+}
+#logo {
+	font-family: '210썸타임L';
+	font-size: 25px;
+	font-weight: bold;
+	text-decoration-line: none;
+	color: blue;	
+}
+#logo-img {
+	width: 110px; 
+	height:35px; 	
+}
+.inner_top {
+	width: 1150px;
+	height: 40px;
+	padding: 0px;
+}
+.container_center > .inner_top > .inner_top_center{
+	float: left;
+	width: 49%;
+	height: 35px;
+}
+.container_center > .inner_top > .inner_top_logo {
+	float: left;
+	width: 10%;
+	height: 35px;
+}
+.container_center > .inner_top > .inner_top_logo_explain{
+	float: left;
+	width: 15%;
+	height: 35px;
+}
+.container_center > .inner_top > .inner_top_login{
+	float: left;
+	width: 25%;
+	height: 35px;	
+}
+
+.container_center > .inner_top > .inner_top_logo_explain> .logo_explain {
+	font-family: '210썸타임L';
+	font-size: 14px;
+	color:rgba(153,153,153,0.99);
+}
+#login, #profile {
+	float: right;
+	border:solid 0.2px gray;
+	border-radius: 20%;
+	margin-right: 2px;
+	line-height: 30px;
+	height: 30px;
+	font-family: '나눔스퀘어L';
+	font-size: 13px;
+	text-decoration: none;
+	text-align: center;
+	color:black;
+	background-color: white;
+}
+#login {
+	width: 50px;
+}
+ #profile {
+	width:80px;
+	
+ }
+.container_center > .slider_wrapper> .slider_top {
+	top:49px;
+	width: 1150px;
+	height: 30px;
+	background: linear-gradient(to bottom,rgb(0,0,0), rgb(76,76,89));	
+}
+.container_center > .slider_wrapper > .slider_center {
+	top:78px;
+	width: 1150px;
+	height: 280px;
+}
+.container_center > .slider_wrapper > .slider {
+	width: 1150px;
+	height: 281px;
+}
+.container_center > .slider_wrapper> .slider_bottom {
+	top:230px;
+	width: 1150px;
+	height: 30px;
+	border: solid 1px aqua;
+	background: linear-gradient(to top, rgb(0,0,0), rgb(76,76,89));
+}
+
+.nav_wrapper {
+	position: absolute;
+	z-index: 5;
+	top:358px;
+	width: 1150px;
+	height: 40px;
+	border: none;
+	border-radius: 5px;
+	background: rgba(43, 83, 138, 1);	
+}
+.container_center > .nav_wrapper_div > .nav_wrapper > .nav_elm1 {
+	float: left;
+	margin-left: 30px;
+	
+}
+.container_center > .nav_wrapper_div > .nav_wrapper > .nav_elm2, .nav_elm3, .nav_elm4 {
+	float: left;
+	
+}
+.container_center > .nav_wrapper_div > .nav_wrapper > .nav_elm1, .nav_elm2, .nav_elm3, .nav_elm4 {
+	width: 80px;
+	height: 30px;
+	padding: 5px;
+	text-align: center;
+}
+#header_nav_a1, #header_nav_a2, #header_nav_a3, #header_nav_a4  {
+	font-family: '210썸타임L';
+	font-weight: 600;
+	color: white;
+	text-decoration: none;
+}
+.container_center > .nav_wrapper_div > .nav_wrapper > .nav_elm > a:hover {
+	text-decoration: underline;
+	text-decoration-thickness: 3px;
+}
+

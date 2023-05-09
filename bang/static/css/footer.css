@@ -1,0 +1,48 @@
+.footer_container {
+	width: 1150px;
+	height: 100px;
+	margin: auto;
+	padding-top: 40px;
+	background:white;
+}
+#logo-img{
+	width:90px;
+	height: 40px;
+}
+.logo-div, .copyright-div{
+	line-height: 40px;
+}
+.logo-div{
+	float: left;
+	width: auto;
+	margin: 0;
+	padding: 0;
+	margin-left: 5px;
+
+}
+
+.copyright-div {
+	float: left;
+	width: auto;
+	margin-left: 10px;
+	color: #888;
+
+}
+
+.copyright-div ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+}
+.copyright-div li {
+	flex: 1;
+	position: relative;
+	margin-right: 20px;
+	white-space: nowrap;
+}
+
+
+
+
+

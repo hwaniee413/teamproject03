@@ -1,0 +1,112 @@
+.slider{
+	width: 1000px;
+	height: 281px;
+	left: 0px;
+	position: relative;
+	margin: 0 auto;
+	overflow: hidden;
+	z-index: 1;
+}
+.slider input[type=radio]{
+	display: none;
+}
+
+ul.imgs{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+ul.imgs li{
+	position: relative;
+	transition-delay: 1s;
+	list-style: none;
+	padding: 0;
+}
+.bullets{
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 20px;
+	z-index: 2;
+	display: none;
+	
+}
+.bullets label{
+	display: inline-block;
+	border-radius: 50%;
+	background-color: rgba(204,204,204,0.7);
+	width: 12px;
+	height: 12px;
+	cursor: pointer;
+	display: none;
+}
+
+.slider input[type=radio]:nth-child(1):checked~.bullets>label:nth-child(1){
+	background-color: #fff;
+}
+.slider input[type=radio]:nth-child(2):checked~.bullets>label:nth-child(2){
+	background-color: #fff;
+}
+.slider input[type=radio]:nth-child(3):checked~.bullets>label:nth-child(3){
+	background-color: #fff;
+}
+.slider input[type=radio]:nth-child(4):checked~.bullets>label:nth-child(4){
+	background-color: #fff;
+}
+
+.slider input[type=radio]:nth-child(1):checked~ul.imgs>li:nth-child(1){
+	left: 0;
+	transition: 0.5s;
+	z-index:1;
+}
+.slider input[type=radio]:nth-child(2):checked~ul.imgs>li:nth-child(2){
+	left: 0;
+	transition: 0.5s;
+	z-index:1;
+}
+.slider input[type=radio]:nth-child(3):checked~ul.imgs>li:nth-child(3){
+	left: 0;
+	transition: 0.5s;
+	z-index:1;
+}
+.slider input[type=radio]:nth-child(4):checked~ul.imgs>li:nth-child(4){
+	left: 0;
+	transition: 0.5s;
+	z-index:1;
+}
+
+.slide_button {
+	
+  /* layout */
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  /* position */
+  position: absolute;
+  /* 버튼이 중앙에 위치하게 하기위해 계산 */
+  top: calc(50% - 16px);
+
+  /* size */
+  width: 32px;
+  height: 32px;
+
+  /* style */
+  border-radius: 100%;
+  background-color: rgba(153,153,153,0.33);
+  cursor: pointer;
+}
+
+.slide_prev_button {
+	display: none;
+	color: rgba(255,255,255,0.5);
+	left: 10px;
+    z-index: 110;
+}
+.slide_next_button {
+	display: none;
+	color: rgba(255,255,255,0.5);
+    right: 10px;
+    z-index: 110;
+}

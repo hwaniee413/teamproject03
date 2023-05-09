@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/videos.css' %}">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge; chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>롤방 Home</title>
+	<link rel="shortcut icon" href="#">
+	<script src="{% static '/js/video.js' %}"></script>
+	<style>
+	</style>
+</head>
+<body>
+{% include 'header.html' %}
+<div class="body_container">
+	<ul class="video_container">
+		<div class="video_explain">
+			<strong class="strong_video">영상</strong>
+			<span class="span_video">재밌는 LOL 영상들을 모아놨어요</span>
+		</div>
+		{% if page_obj %}
+		{% for contents in page_obj %}
+		<li class="video">
+			<div class="video_area">
+				<a href="{{contents.link}}" target="_blank">
+					<div class="video_area_thumbnail" style="background-image: url('{{contents.thumbnail}}');">
+						<div class="video_label">
+							<span class="playmark" style="background-image: url('{% static 'imgs/play.png' %}');"></span>
+							<span class="runtime">{{contents.runtime}}</span>
+						</div>
+					</div>
+					<div class="text_area">
+						<div class="title_area" ::before>{{contents.title}}
+						</div>
+					</div>
+					<div class="source">
+						<i class="source_youtube"></i>{{contents.author}}
+					</div>
+				</a>
+			</div>	
+		</li>
+		{% endfor %}
+		{% endif %}
+		<button id="load" class="show_more_box" type="button">더 보기
+		</button>
+		{% include 'footer.html' %}
+	</ul>
+</div>
+</body>
+</html>

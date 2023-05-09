@@ -1,0 +1,104 @@
+{% block content %}
+<!DOCTYPE html>
+<html>
+	<head>
+		{% load static %}
+		<meta charset='UTF-8'>
+        <title>LOLbang : 내 프로필</title>
+        <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+	<script>
+		function check(){
+			var answer = confirm("정말 로그아웃 하시겠습니까?");
+			if (answer==true) {
+				location.href="../signout";
+			} 
+		}
+		{% if request.session.signin_ok_user %}
+		var session_timeout = "{{ request.session.get_expiry_age }}";
+			setTimeout(function() {
+			  alert("세션이 만료되어 로그아웃 되었습니다.");
+			  window.location.href = "../signout";
+		}, session_timeout * 1000);
+		{% endif %}
+	</script>
+	</head>
+<header>
+	<div class="container_center">
+		<div class="inner_top">
+			<div class="inner_top_logo">
+				<a id="logo" href="/bang/League_of_Legends/home"><img id="logo-img" src="{% static 'imgs/logo.png' %}"></a>
+			</div>
+			<div class="inner_top_logo_explain">
+				<strong class="logo_explain">수다Bang</strong>
+			</div>
+			<div class="inner_top_center">
+			</div>
+			{% if request.session.signin_ok_user %}
+			<div class="inner_top_login"> 
+				<a id="profile" href="/bang/League_of_Legends/profile">내 프로필</a>
+			</div>			
+			{% endif %}
+		</div>
+		<div class="profile_banner" style="background-color: rgb(78, 65, 219);">
+			<div class="profile_info">
+				<div class="profile_image_info">
+					<div class="profile_image_area">
+						<div class="image_wrapper">
+							<img class="profile_image" src="{% static 'imgs/bee.png'%}">
+						</div>
+					</div>
+				</div>
+				<div class="profile_information">
+					<div class="profile_name">
+						<strong class="profile_nname">{{signin_ok_user}}</strong>
+						<span class="profile_welcome">님 환영합니다.</span>
+					</div>
+				</div>
+			</div>
+			<div class="profile_button">
+				<input class="update_button" type="button" value="회원정보수정" onclick="location.href='./verify_pwd'">
+				<input class="logout_button" type="button" value="로그아웃" onclick="check()">
+				<input class="back_button" type="button" value="홈으로" onclick="location.href='../home'">
+			</div>
+		</div>
+	</div>
+</header>
+<body>
+	<div class="body_container">
+		<div class="activity_container">
+			<div class="activity_period">
+				<button type="button" class="activity_board" onclick="location.href='../board'">
+					<i class="activity_board_ico"></i>
+					<strong class="activity_title">작성한 글</strong>
+					<em class="activity_count" style="color: rgb(78, 65, 218)">{% if contents %}{{contents}}{% else %}0{% endif %}</em>
+				</button>			
+				<button type="button" class="activity_comment" onclick="location.href='../board'">
+					<i class="activity_comment_ico"></i>
+					<strong class="activity_title">작성한 댓글</strong>
+					<em class="activity_count" style="color: rgb(78, 65, 218)">{% if comments %}{{comments}}{% else %}0{% endif %}</em>
+				</button>
+			</div>
+			<div class="activity_tab"></div>
+		</div>
+		<div class="side_container">
+			<div class="side_bang">
+				<div class="bang_wrapper">
+					<div class="visit_bang">
+						<strong class="visit_bang_title">최근 방문한 Bang</strong>
+					</div>
+					<button class="bang_link_area" onclick="location.href='../home/'">
+						<div class="bang_thumbnail">
+							<div class="bang_thumbnail_ico" style="background-image: url('{% static 'imgs/lol.png'%}');">
+							</div>
+						</div>
+						<span class="bang_name">리그 오브 레전드
+						</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% include 'footer.html' %}
+</body>
+</html>
+{% endblock %}

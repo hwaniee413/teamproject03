@@ -1,0 +1,24 @@
+@font-face  {
+	font-family:'나눔스퀘어L';
+	font-style:'normal';
+	font-weight: 400;
+	src: url("{% static '/fonts/NanumSquareOTFLight.woff' %}");
+}
+@font-face  {
+	font-family:'나눔스퀘어B';
+	font-style:'normal';
+	font-weight: 900;
+	src: url("{% static '/fonts/NanumSquareOTFBold.woff' %}");
+}
+@font-face  {
+	font-family:'210썸타임L';
+	font-style:'normal';
+	font-weight: 400;
+	src: url("{% static '/fonts/210-Sometime-OTF-L.woff' %}");
+}
+@font-face  {
+	font-family:'210썸타임B';
+	font-style:'normal';
+	font-weight: 400;
+	src: url("{% static '/fonts/210-Sometime-OTF-B.woff' %}");
+}

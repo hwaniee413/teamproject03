@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{%load static%}
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge; chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="{% static 'js/trim.js' %}"></script>
+	<title>롤방 Home</title>
+	<link rel="stylesheet" href="{% static 'css/home.css' %}">
+	<link rel="shortcut icon" href="#">
+	<script>
+		{% if success %}
+		alert({{success}});
+		{% endif %}
+	</script>
+</head>
+<body>
+{% include 'header.html' %}
+<div class="body_container">
+	<div class="main_container">
+		<div class="board_container">
+			<div class="board_title">
+				<strong class="latest_post">수다bang 최신글</strong>
+				<a class="board_more" href="../board/" style="text-decoration:none">더보기</a>
+			</div>
+			<div class="board_content">
+				<ul class="latest_list">
+					{% if page_obj %}
+					{% for contents in page_obj %}
+					<li class="latest_list_item">
+						<a class="latest_list_link" href="../board/detail/{{contents.id}}">
+							<div class="latest_list_content">
+								<div class="latest_list_title">
+									<strong class="latest_list_title_text">{{contents.title}}</strong>
+									<span class="new_ico" style="background-image: url('{% static 'imgs/new_ico.png' %}');"></span>
+								</div>
+								<div class="latest_list_info">
+									<span class="user_ico" style="background-image: url('{% static 'imgs/user_ico.png' %}');"></span>
+									<span class="user_nname">{{contents.nname}}</span>
+									<span class="board_rdate">{{contents.rdate}}</span>
+									<span class="like">추천 {{contents.like}}</span>
+									{% if contents.comment_count %}
+									<span class="comment">({{contents.comment_count}})</span>
+									{% endif %}
+								</div>								
+							</div>
+						</a>
+					</li>
+					{% endfor %}
+					{% endif %}
+				</ul>
+			</div>
+			<div class="board_title">
+				<strong class="latest_post">챔 피 언</strong>
+				<a class="board_more" href="../db/champion/" style="text-decoration:none">더보기</a>
+			</div>
+			<div class="board_content">
+				<ul class="champion_list">
+					{% if page_obj2 %}
+					{% for contents in page_obj2 %}
+					<li class="champions">
+						<a class="champion_ico_link" href="../db/champion/ch_details/{{contents.name}}">
+							<div class="champion_ico_area">
+								<img class="champion_ico" src="/media/{{contents.image}}">
+							</div>
+							<div class="champion_name_area">
+								<span class="champion_name">{{contents.name}}</span>
+							</div>
+						</a>
+					</li>
+					{% endfor %}
+					{% endif %}
+				</ul>
+			</div>
+			<div class="board_title">
+				<strong class="latest_post">롤 영상</strong>
+				<a class="board_more" href="../videos" style="text-decoration:none">더보기</a>
+			</div>
+			<div class="board_content">
+				<ul class="video_list">
+					{% if page_obj3 %}
+					{% for contents in page_obj3 %}
+						<li class="videos">
+							<a class="video_link" target="_blank", href="{{contents.link}}" style="text-decoration:none">
+								<div class="video_thumbnail" style="background-image: url('{{contents.thumbnail}}');">
+									<span class="playmark" style="background-image: url('{% static 'imgs/play.png' %}');"></span>
+									<span class="runtime">{{contents.runtime}}</span>
+								</div>
+								<div class="video_title_area">
+									<strong class="video_title">{{contents.title}}</strong>
+									<div class="source">
+										<i class="source_youtube"></i>{{contents.author}}
+									</div>
+								</div>
+							</a>
+						</li>
+					{% endfor %}
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="side_container">
+		<div class="welcome">
+			<div class="welcome_title" style="background-image: url(https://ssl.pstatic.net/static/nng/resource/img/sp/pcw/sp_mw4.png);"></div>
+			<div class="welcome_text_area">
+				<strong class="welcome_title_message">'리그 오브 레전드' 수다bang에 오신것을 환영합니다</strong>
+				<p>'리그 오브 레전드'를 사랑하는 모든 분들의 공간이며 서로 즐겁고 도움이 될 수 있도록 도와주세요.</p>
+				<ol class="rule_wrapper">
+					<li class="welcome_rule"><span><strong class="rule_no">1.</strong></span>'리그 오브 레전드'와 관련된 글을 올려주세요</li>
+					<li class="welcome_rule"><span><strong class="rule_no">2.</strong></span>도움이 되거나 재밌는 글에는 추천을 눌러주세요</li>
+					<li class="welcome_rule"><span><strong class="rule_no">3.</strong></span>개인에 대한 공격은 서로에게 상처가 된답니다</li>
+					<li class="welcome_rule"><span><strong class="rule_no">4.</strong></span>개인정보(전화번호, email, 계정 등)을 노출하시면 위험해요</li>
+					<li class="welcome_rule"><span><strong class="rule_no">5.</strong></span>광고글과 사기글, 지나치게 폭력적이고 성적인 콘텐츠는 예고 없이 삭제됩니다</li>
+				</ol>
+			</div>
+		</div>
+		<div class="logsearch_box">
+			<div class="logsearch_title_area">
+				<strong class="logsearch_title">롤 전적 검색</strong>
+			</div>
+			<div class="logsearch_text_area">
+				<p class="logsearch_text">모든 소환사의 승률과 KDA 등 상세 전적을 확인하실 수 있습니다.</p>
+				<a class="logsearch_button" target="_blank" href="https://op.gg" ::before>전적 검색하기</a>
+			</div>
+		</div>
+		<div class="homepage">
+			<div class="homepage_title_area">
+				<strong class="homepage_title">설치 및 구입</strong>
+			</div>
+			<li class="homepage_button_area">
+				<a class="homepage_button" target="_blank" href="https://leagueoflegends.com/ko-kr/">
+					<div class="homepage_ico_area">
+						<span class="homepage_ico"></span>
+					</div>
+					<div class="homepage_link_title">공식 사이트
+					</div>
+				</a>
+			</li>
+		</div>
+	</div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

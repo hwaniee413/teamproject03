@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+		<link rel="stylesheet" href="{% static 'css/update.css' %}">
+		<meta charset='UTF-8'>
+		<title>LOLbang : 회원정보수정</title>
+		<script src="{% static '/js/trim.js' %}"></script>
+		<script language="javascript"> 
+			function check(){			
+				var phoneval = f.phone.value;
+				phoneval = trim(phoneval);
+				
+				if(phoneval.length == 0){
+					alert("연락처를 넣어주세요");
+					f.phone.value = "";
+					f.phone.focus();
+					return false;
+				}else{
+					pass = checkByteLen(phoneval, 20);
+					if(!pass){
+						alert("연락처가 너무 길어요");
+						f.phone.focus();
+						return false;
+					}
+				}
+				
+				var pwd1val = f.pwd1.value;
+				pwd1val = trim(pwd1val);
+
+				if(pwd1val.length == 0){
+					alert("비밀번호변경을 위해 넣어주세요");
+					f.pwd1.value = "";
+					f.pwd1.focus();
+					return false;
+				}else{
+					pass = checkByteLen(pwd1val, 15);
+					if(!pass){
+						alert("비밀번호가 너무 길어요");
+						f.pwd1.focus();
+						return false;
+					}
+				}
+
+				var pwd2val = f.pwd2.value;
+				pwd2val = trim(pwd2val);
+
+				if(pwd2val.length == 0){
+					alert("비밀번호확인에 넣어주세요");
+					f.pwd2.value = "";
+					f.pwd2.focus();
+					return false;
+				}else{
+					pass = checkByteLen(pwd2val, 15);
+					if(!pass){
+						alert(" 두 비밀번호가 일치하지 않아요");
+						f.pwd2.focus();
+						return false;
+					}
+				}
+
+				function passwordsame(p1, p2){
+					var pwd1 = p1
+					var pwd2 = p2
+					if(pwd == pwd2){
+						return true;
+					}else{
+						return false;
+					}
+				}
+
+				f.submit();
+			}
+		
+			function checkByteLen(str, size){
+				var byteLen = getByteLen(str);
+				if(byteLen <= size){
+					return true;
+				}else{
+					return false;
+				}
+			}
+			function getByteLen(str){
+			   return str.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
+			}
+			
+			function enterCheck(elm){
+				if(event.keyCode == 13){
+					if(elm == f.phone){
+						f.pwd1.focus();
+					}else if(elm == f.epwd){
+						f.pwd2.focus();
+					}else{
+						check();
+					}
+				}
+			}
+
+
+		</script>
+	
+	</head>
+	<body onload="document.f.email.focus()">
+		<header>
+			<center>         
+				<div><a href='../../home' class="logo"><img src="{% static 'imgs/logo.png' %}"></a></div>
+				<div class="editmember">회원정보수정</div>
+			</center>
+		</header>
+		<form name="f" action="update_ok" method="post">
+		{% csrf_token %}
+		<center>
+				<div>
+					<div class="container" >
+						<div>
+							<td><h4 align=left>연락처</h4></td>
+							<input class="input" type="text" name="phone" maxlength="13" placeholder="연락처" onkeydown="enterCheck(this)">
+							<td><h4 align=left>변경비밀번호(*최대 15자제한)</h4></td>
+							<input class="input" type="password" name="pwd1" maxlength="15" placeholder="변경비밀번호" onkeydown="enterCheck(this)">
+							<td><h4 align=left>비밀번호확인(*최대 15자제한)</h4></td>
+							<input class="input" type="password" name="pwd2" maxlength="15" placeholder="비밀번호확인" onkeydown="enterCheck(this)">
+						</div>
+						<label>{{ error }}</label>
+						<div>
+							<input class="revice_button" type="button" value="수정" onclick="check()" >
+							<input class="exit_button" type="button" value="취소" onclick="location.href='../'" >
+						</div>
+					</div>
+				</div>
+			</form>
+		</center>
+	</body>
+</html>

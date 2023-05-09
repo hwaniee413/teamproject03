@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='UTF-8'>
+        <title>LOLbang : 로그인</title>
+        {% load static %}
+        <script src="{% static '/js/trim.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/signin.css' %}">
+        <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+
+        <script language="javascript">  
+            function check(){
+                var idval = f.email.value;
+                idval = trim(idval);
+                if(idval.length == 0){
+                    alert("아이디를 넣어주세요");
+                    f.email.value = "";
+                    f.email.focus();
+                    return false;
+                }else{
+                    pass = checkByteLen(idval, 50);
+                    if(!pass){
+                        alert("아이디가 너무 길어요");
+                        f.email.focus();
+                        return false;
+                    }
+                }
+                var pwdval = f.pwd.value;
+                pwdval = trim(pwdval);
+                if(pwdval.length == 0){
+                    alert("비번을 넣어주세요");
+                    f.pwd.value = "";
+                    f.pwd.focus();
+                    return false;
+                }else{
+                    pass = checkByteLen(pwdval, 25);
+                    if(!pass){
+                        alert("비번이 너무 길어요");
+                        f.pwd.focus();
+                        return false;
+                    }
+                }
+                f.submit();
+            }
+        
+            function checkByteLen(str, size){
+                var byteLen = getByteLen(str);
+                if(byteLen <= size){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            function getByteLen(str){
+               return str.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g,"$&$1$2").length;
+            }
+            
+            function enterCheck(elm){
+                if(event.keyCode == 13){
+                    if(elm == f.email){
+                        f.pwd.focus();
+                    }else{
+                        check();
+                    }
+                }
+            }
+            function showSignup(){
+                var signin_container = document.getElementsByClassName("signin-container")
+                var signup_container = document.getElementsByClassName("signup-container")
+                alert(signin_container + ","+ signup_container)
+                signin_container[0].style.setProperty('display', 'none')
+                signup_container[0].style.setProperty('display', 'block')
+            }
+            function showSignin(){
+                var signin_container = document.getElementsByClassName("signin-container")
+                var signup_container = document.getElementsByClassName("signup-container")
+                signin_container[0].style.setProperty('display', 'block')
+                signup_container[0].style.setProperty('display', 'none')
+            }
+        </script>
+
+    </head>
+    <!--<body bgcolor="#F5F5F5">-->
+    <body>
+        <div class="body_container">
+            <form name="f" action="signin_ok" method="post">
+            {% csrf_token %}
+            <div class="container">
+                <center>         
+                    <div><a href="/bang/League_of_Legends/home" class="logo"><img src="{% static 'imgs/logo.png' %}"></a></div>
+                </center>
+                <div class="signin-signup-wrapper">
+                    <div class="signin-wrapper">
+                        <input id="signin" type="button" value="로그인" onclick="location.href=''"/>
+                    </div>
+                    <div class="signup-wrapper">
+                        <input id="signup" type="button" value="회원가입" onclick="location.href='../signup'">
+                    </div>
+                </div>
+                <div class="signin-container">
+                    <div class="email-wrapper">
+                        <div class="email-label-wrapper">
+                            <h4>이메일</h4>
+                        </div>
+                        <div class="email-input-wrapper">                        
+                            <input class="input" type="email" id="emailid" name="email" maxlength="50" placeholder="abc@abc.com" onkeydown="enterCheck(this)" required>
+                        </div>
+                    <div class="pwd-wrapper">
+                        <div class="pwd-label-wrapper">
+                            <h4>비밀번호(*최대 15자)</h4>
+                        </div>
+                        <div class="pwd-input-wrapper">
+                            <input class="input" type="password" name="pwd" maxlength="15" placeholder="비밀번호" onkeydown="enterCheck(this)">
+                        </div>
+                    </div>
+                    <br/>
+                    <label>{{ errormsg }}</label>
+                    <div class="loginBt-wrapper">
+                        <input class="login_button" type="button" value="로그인" onclick="check()">
+                        <input class="sub_button1" type="button" value="아이디 찾기" onclick="location.href='../idfind'">  
+                        <input class="sub_button2" type="button" value="비밀번호 찾기" onclick="location.href='../pwfind'">                       
+                    </div>
+                </div>
+            </div>  
+            </form>
+        </div>
+   {% include 'footer.html' %}
+    </body>
+  
+</html>

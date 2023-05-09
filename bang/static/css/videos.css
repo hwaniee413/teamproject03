@@ -1,0 +1,169 @@
+body{
+    background-color: rgb(245, 245, 250);
+
+}
+.video_container {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+i {
+    box-sizing: border-box;
+    font-weight: bold;
+}
+
+.body_container > .video_container > .video > .video_area > a {
+    text-decoration: none;
+    color: #111111;
+}
+.body_container > .video_container > .video > .video_area > a:hover{
+    text-decoration: underline;
+}
+
+.video_explain{
+    display: flex;
+    padding-bottom: 15px;
+}
+
+.strong_video{
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-left: 54px;
+}
+
+.span_video{
+    align-self: flex-end;
+    margin: 0 0 2px 12px;
+    font-size: 15px;
+    line-height: 19px;
+    color: #666;
+}
+.video_container {
+    margin-top: 20px;
+    background-color: #ffffff;
+}
+
+.video {
+    cursor: pointer;
+    display: none;
+    vertical-align: top;
+    width: 290px;
+    margin-left: 54px;
+    margin-top: 8px;
+    padding-bottom: 20px;
+}
+
+.video_area {
+    display: block;
+}
+
+.video_label {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.runtime {
+    position: absolute;
+    right: 11px;
+    bottom: 11px;
+    padding: 0 6px;
+    font-weight: bold;
+    color: #f5f5f5;
+    background-color: #111111;
+}
+
+.text_area{
+    position: relative;
+    margin-top: 6px;
+}
+
+.title_area{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.text_area::before{
+    content: "";
+    top: 8px;
+    left: -8px;
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    position: absolute;
+    background-color: #d11111;
+}
+
+.source {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 3px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 15px;
+    letter-spacing: 0px;
+    color: #444;
+}
+
+.source_youtube{
+    background-image: url(https://ssl.pstatic.net/static/nng/resource/p/static/media/sp_mw_22_1.70c19d26.png);
+    background-size: 355px 330px;
+    background-repeat: no-repeat;
+    background-position: -291px -206px;
+    width: 19px;
+    height: 13px;
+    font-weight: bold;
+    display: inline-block;
+    margin: 2px 5px 0 0;
+    vertical-align: top;
+}
+
+.playmark {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    bottom: 11px;
+    left: 12px;
+    font-size: 0;
+}
+
+.video_area_thumbnail {
+    position: relative;
+    height: 164px;
+    border-radius: 8px;
+    background-color: #ebedf3;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.body_container {
+    display: block;
+    width: 1100px;
+    height: auto;
+    overflow: hidden;
+    margin: auto;
+}
+
+.show_more_box {
+    cursor: pointer;
+    display: block;
+    background-color: #ffffff;
+    border: solid 1px #dadada;
+    font-size: 15px;
+    font-weight: bold;
+    width:100%;
+    height: 80px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}

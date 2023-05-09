@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge; chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static 'css/map.css' %}">
+	<title>롤방 게시판</title>
+	<link rel="shortcut icon" href="#">
+	<style>
+
+	</style>
+</head>
+<body>
+{% include 'header.html' %}
+<div class="body_container">
+	<div class="nav_container">
+		<div class="article-parents-title">
+			<div class="article-parents-title"><strong>DB</strong></div>
+			<div class="article-childs-title">
+				<div><li><button id="article-childs-item-button" onclick="location.href='/bang/League_of_Legends/db/champion'"><span class="champion-db" id="article-childs-item-span">챔피언</span></button ></li></div>
+				<div><li><button id="article-childs-item-button" onclick="location.href='/bang/League_of_Legends/db/map'"><span class="game-db" id="article-childs-item-span">게임 모드</span></button></li></div>
+			
+			</div>	
+		</div>
+	</div>
+	<section>
+		<div class="center_container">
+			<div class="category-title-wrapper">
+				<label id="category-title-label1"><strong>게임 모드</strong></label>
+				<label id="category-title-label2"><strong>2</strong></label>
+			</div>
+			<div class="role-category-wrapper">
+				<label id="role-category-label">게임 모드</label>
+				<input type="button" class="mapname" id="mapname1" onclick="location.href='/bang/League_of_Legends/db/map/Summoners_Rift'" value="소환사의 협곡"/>
+				<input type="button" class="mapname" id="mapname2" onclick="location.href='/bang/League_of_Legends/db/map/Howling_Abyss'" value="칼바람 나락"/>
+			</div>
+			<div class="map-container">
+				<ul>
+					<li class="map">
+						<a href="/bang/League_of_Legends/db/map/Summoners_Rift">
+							<div class="map-thumnail">
+								<img src="{% static 'imgs/Rift.png' %}" class="map-image">
+							</div>
+							<div class="map-name">
+								<div class="name-header">
+									<span class="map-title">소환사의 협곡</span>
+								</div>
+								<div class="explain-header">
+									<p>리그 오브 레전드의 대표적 전장인 소환사의 협곡입니다. </p>
+								</div>
+							</div>
+						</a>
+					</li>
+					<li class="map">
+						<a href="/bang/League_of_Legends/db/map/Howling_Abyss">
+							<div class="map-thumnail">
+								<img src="{% static 'imgs/Abyss.png' %}" class="map-image">
+							</div>
+							<div class="map-name">
+								<div class="name-header">
+									<span class="map-title">칼바람 나락</span>
+								</div>
+								<div class="explain-header">
+									<p>칼바람 나락은 리그 오브 레전드에서 유일한 단일 공격로 전장입니다.</p>
+								</div>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="search-wrapper"></div>
+			<div class="board-wrapper"></div>
+			<div class="pagination"></div>
+		</div>
+	</section>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>
